@@ -25,8 +25,8 @@ def minify_file(file_path):
                 minified = file_content
             
             # No matter the result
-            print(file_path)
-            print(sys.getsizeof(minified) / sys.getsizeof(file_content))
+            print("Minified", file_path)
+            print("Size factor:", sys.getsizeof(minified) / sys.getsizeof(file_content))
             fwrite(file_path, minified)
     except:
         print("ERROR", file_path)
@@ -38,4 +38,6 @@ def minify_dir(directory):
           minify_file(file_path)
           
 # DEBUG
-minify_dir(os.path.join(os.path.abspath(os.path.dirname(__file__)), "resources"))
+if __name__ == "__main__":
+    dirname = input("Path to directory: ")
+    minify_dir(os.path.join(os.path.abspath(os.path.dirname(__file__)), dirname))
