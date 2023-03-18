@@ -17,13 +17,16 @@ def minify_js(js):
     return jsmin(js)
 
 def minify_string(string, content_type=None):
-    if content_type="html":
-        return minify_html(string)
-    elif content_type="css":
-        return minify_css(string)
-    elif content_type="js":
-        return minify_js(string)
-    else:
+    try:
+        if content_type="html":
+            return minify_html(string)
+        elif content_type="css":
+            return minify_css(string)
+        elif content_type="js":
+            return minify_js(string)
+        else:
+            return string
+    except:
         return string
         
 
