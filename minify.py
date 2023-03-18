@@ -16,7 +16,7 @@ def minify_css(css):
 def minify_js(js):
     return jsmin(js)
 
-def minify_string(string, content_type=None):
+def minify_content(string, content_type=None):
     try:
         if content_type="html":
             return minify_html(string)
@@ -35,24 +35,25 @@ def fwrite(path, content):
     with open(path, 'w') as f:
         f.write(content)
 
+# Use regular expression to match the file extension at the end of the filename
+# Not using os/mimetypes etc.; this has to work with a string
+def get_content_type(filename):
+    match = re.search(r'\.([^.]+)$', filename)
+    if match:
+        return match.group(1)
+    else:
+        return None
+
 def minify_file(file_path):
     try:
         with open(file_path, 'r') as f:
-            file_content = f.read()
-            if file_path.endswith(".js"):
-                # Uses different syntax to the others(?)
-                minified = jsmin(f.read())
-            elif file_path.endswith(".html") or file_path.endswith(".css"):
-                if file_path.endswith('.html'):
-                    minified = htmlmin.minify(file_content, remove_comments=True, remove_empty_space=True)
-                elif file_path.endswith('.css'):
-                    minified = csscompressor.compress(file_content)
-            else:
-                minified = file_content
+            content = f.read()
+            content_type = get_content_type(file_path)
+            minified = minify_content(content, content_type)
             
             # No matter the result
             print("Minified", file_path)
-            print("Size factor:", sys.getsizeof(minified) / sys.getsizeof(file_content))
+            print("Size factor:", sys.getsizeof(minified) / sys.getsizeof(content))
             fwrite(file_path, minified)
     except:
         print("ERROR", file_path)
