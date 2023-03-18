@@ -16,7 +16,9 @@ Requires csscompressor, htmlmin, and jsmin to be installed in the Python 3 envir
 
 ## Functions
 
-#### minify_file(file_path)
+#### minify_file
+
+Usage: `minify_file(file_path)`
 
 This function takes a file path as input and checks if the file extension is .html, .js, or .css. If the file extension matches, it applies the appropriate minification process, which can reduce the size of the file without changing its functionality. 
 
@@ -28,9 +30,9 @@ Returns:
 
 - None. File located at `file_path` is minified.
 
+#### minify_dir
 
-
-#### minify_dir(dir_path)
+Usage: `minify_dir(dir_path)`
 
 This function takes a directory path as input and applies the minify_file() function recursively to all files within the directory and its subdirectories that have the extensions of .html, .js, or .css.
 
