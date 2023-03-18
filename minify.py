@@ -8,6 +8,10 @@ def fwrite(path, content):
     with open(path, 'w') as f:
         f.write(content)
 
+
+
+
+
 # WIP; rewirte to return
 def minify_file(file_path):
     try:
