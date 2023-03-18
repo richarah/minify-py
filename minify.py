@@ -6,6 +6,7 @@ from jsmin import jsmin
 
 
 # Functions for minifying strings of content
+# Not using the htmlmin, csscompressor etc. directly, so we can easily switch minification engines in the future
 def minify_html(html):
     return htmlmin.minify(html, remove_comments=True, remove_empty_space=True)
 
@@ -15,14 +16,22 @@ def minify_css(css):
 def minify_js(js):
     return jsmin(js)
 
+def minify_string(string, content_type=None):
+    if content_type="html":
+        return minify_html(string)
+    elif content_type="css":
+        return minify_css(string)
+    elif content_type="js":
+        return minify_js(string)
+    else:
+        return string
+        
 
-
+# File & dir manipulation related functions
 def fwrite(path, content):
     with open(path, 'w') as f:
         f.write(content)
 
-
-# WIP; rewirte to return
 def minify_file(file_path):
     try:
         with open(file_path, 'r') as f:
