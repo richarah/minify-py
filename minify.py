@@ -4,12 +4,19 @@ import csscompressor
 import htmlmin
 from jsmin import jsmin
 
+
+# Functions for minifying strings of content
+def minify_html(html):
+    return htmlmin.minify(html, remove_comments=True, remove_empty_space=True)
+
+
+def minify_css(css):
+    return csscompressor.compress(css)
+
+
 def fwrite(path, content):
     with open(path, 'w') as f:
         f.write(content)
-
-
-
 
 
 # WIP; rewirte to return
