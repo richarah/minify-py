@@ -9,9 +9,12 @@ from jsmin import jsmin
 def minify_html(html):
     return htmlmin.minify(html, remove_comments=True, remove_empty_space=True)
 
-
 def minify_css(css):
     return csscompressor.compress(css)
+
+def minify_js(js):
+    return jsmin(js)
+
 
 
 def fwrite(path, content):
